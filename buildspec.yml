@@ -1,19 +1,18 @@
-version: 0.2
-
 phases:
   install:
     runtime-versions:
       python: 3.9
     commands:
       - pip install aws-sam-cli
+      - sam --version   # confirm installation
   pre_build:
     commands:
-      - echo "Using ARTIFACT_BUCKET=$ARTIFACT_BUCKET"
+      - echo "ARTIFACT_BUCKET=$ARTIFACT_BUCKET"
+      - ls -l            # list files to confirm template is present
   build:
     commands:
-      - sam build
-      - sam package --output-template-file packaged-template.yaml --s3-bucket $ARTIFACT_BUCKET
-
+      - sam build --debug
+      - sam package --output-template-file packaged-template.yaml --s3-bucket $ARTIFACT_BUCKET --debug
 artifacts:
   files:
     - packaged-template.yaml
