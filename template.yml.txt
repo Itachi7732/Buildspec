@@ -1,16 +1,21 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: Sample SAM template
+Description: Simple SAM template for a Lambda function
 
 Resources:
-  HelloWorldFunction:
+  MyFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: .
-      Handler: app.lambda_handler
+      FunctionName: MySampleFunction
+      Handler: app.lambda_handler   # Adjust based on your code
       Runtime: python3.9
+      CodeUri: .
+      MemorySize: 128
+      Timeout: 10
+      Policies:
+        - AWSLambdaBasicExecutionRole
       Events:
-        HelloWorld:
+        HelloWorldApi:
           Type: Api
           Properties:
             Path: /hello
